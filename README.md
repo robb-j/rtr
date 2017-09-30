@@ -1,11 +1,62 @@
+# rtr - Regular Task Runner
 
-# Node Sample Project
-> A project to kickstart a node app / server, with the common things already setup.  
-> 29 Sept 2017 - Rob Anderson
+Running arbitrary code on a regular basis made easy
+
+
+```js
+const Runner = require('reg-task').Runner
+
+let task = new Runner({ h: 1 }, () => {
+  // Complex algorithm goes here ...
+})
+
+task.start()
+```
+
 
 ## Features
-- Basic `Dockerfile` to build the app
-- Docker build scripts to build and push an image based on the contents of `REGISTRY` & `VERSION`
-- Mocha & Chai unit tests setup
-- Eslint setup, with a bit of config tweaks
-- Code coverage with nyc
+- Runs code at a defined interval
+- Any errors are caught and emitted (via [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter))
+- Use async/await, because why would you use anything else
+- Tasks never run in parallel, the old task must finish
+- Simplified scheduling syntax to quickly get a timer going
+
+
+## Examples
+
+```js
+const Runner = require('reg-task').Runner
+
+
+// Tick Configuration
+let daily = { d: 1 }
+let everyTenSeconds = { s: 10 }
+let everyTwelfthMinute = { m: 12 }
+let everyDayAndAHalf = { d: 1, h: 12 }
+
+
+// Creating a task
+let task = new Runner(everyDayAndAHalf, () => {
+  // Complex algorithm goes here ...
+})
+
+
+// Start the task
+task.start()
+
+
+// Listen for errors
+task.on('error', (e) => {
+  console.error('Task Error', e)
+})
+
+
+// Force the task to execute once
+task.forceTask()
+
+
+// Stop the task
+task.stop()
+
+
+```
