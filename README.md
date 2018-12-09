@@ -6,6 +6,7 @@ Running arbitrary code on a regular basis made easy
 ```js
 const Runner = require('reg-task').Runner
 
+// A task that runs every hour
 let task = new Runner({ h: 1 }, () => {
   // Complex algorithm goes here ...
 })
