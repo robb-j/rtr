@@ -1,7 +1,8 @@
 # rtr - Regular Task Runner
 
-Running arbitrary code on a regular basis made easy
+> **Archived** – This project has been archived and is generally unsupported
 
+Running arbitrary code on a regular basis made easy
 
 ```js
 const Runner = require('reg-task').Runner
